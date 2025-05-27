@@ -4,7 +4,7 @@ import AuthLayout from "./layouts/AuthenLayout";
 import MainLayout from "./layouts/MainLayout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import NotFound from "./pages/NotFound";
+import NotFound from "./pages/404";
 import Specialty from "./pages/Specialty";
 import Facilities from "./pages/Facilities";
 
