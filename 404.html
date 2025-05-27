@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>404 Not Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        font-family: "Roboto", Arial, sans-serif;
+        background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .decorative-circle-1 {
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background: rgba(33, 150, 243, 0.08);
+        top: 40px;
+        left: -100px;
+        z-index: 0;
+      }
+      .decorative-circle-2 {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(33, 150, 243, 0.1);
+        bottom: 60px;
+        right: -60px;
+        z-index: 0;
+      }
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+      .icon {
+        font-size: 4rem;
+        color: #1976d2;
+        margin-bottom: 24px;
+      }
+      .title {
+        font-size: 120px;
+        font-weight: 700;
+        color: #1976d2;
+        letter-spacing: 8px;
+        margin: 0 0 8px 0;
+        text-shadow: 0 4px 24px rgba(33, 150, 243, 0.1);
+      }
+      .subtitle {
+        font-weight: 600;
+        font-size: 28px;
+        color: #757575;
+        margin-bottom: 16px;
+      }
+      .desc {
+        color: #757575;
+        margin-bottom: 32px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 18px;
+      }
+      .back-btn {
+        background: #2196f3;
+        color: #fff;
+        padding: 12px 32px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 18px;
+        box-shadow: 0 4px 24px 0 rgba(33, 150, 243, 0.1);
+        text-transform: none;
+        letter-spacing: 1px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .back-btn:hover {
+        background: #1976d2;
+      }
+      @media (max-width: 600px) {
+        .title {
+          font-size: 80px;
+        }
+        .subtitle {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="decorative-circle-1"></div>
+    <div class="decorative-circle-2"></div>
+    <div class="content">
+      <i class="fas fa-exclamation-triangle icon"></i>
+      <div class="title">404</div>
+      <div class="subtitle">Oops! Page Not Found</div>
+      <div class="desc">
+        The page you are looking for might have been removed, had its name
+        changed, or is temporarily unavailable.
+      </div>
+      <a href="/dashboard" class="back-btn">Back to Dashboard</a>
+    </div>
+  </body>
+</html>
