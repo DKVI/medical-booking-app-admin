@@ -37,6 +37,11 @@ import {
   faUsers,
   faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const COLORS = [
   "#2196f3",
@@ -198,6 +203,16 @@ function Dashboard() {
       }))
     : [];
 
+  // Chuyển đổi appointmentsPerMonth sang tháng theo giờ Việt Nam
+  const appointmentsPerMonthVN = appointmentsPerMonth.map((item) => {
+    // Giả sử item.month là dạng "2024-05" hoặc "2024-05-01"
+    const date = dayjs.tz(item.month, "Asia/Ho_Chi_Minh");
+    return {
+      ...item,
+      month: date.format("MM/YYYY"), // hoặc "Tháng MM/YYYY" nếu muốn tiếng Việt
+    };
+  });
+
   const summaryBlocks = [
     {
       label: "Facilitys",
@@ -302,7 +317,7 @@ function Dashboard() {
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={barData}>
                     <XAxis fontSize={12} dataKey="name" />
-                    <YAxis />
+                    <YAxis interval={4} allowDecimals={false} tickCount={20} />
                     <Tooltip />
                     <Bar dataKey="value" fill="#1976d2" />
                   </BarChart>
@@ -330,7 +345,7 @@ function Dashboard() {
                   Appointments Per Month
                 </Typography>
                 <ResponsiveContainer width="100%" height={250}>
-                  <LineChart data={appointmentsPerMonth}>
+                  <LineChart data={appointmentsPerMonthVN}>
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />

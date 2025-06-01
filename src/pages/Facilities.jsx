@@ -197,7 +197,8 @@ export default function Facilities() {
   return (
     <Box
       sx={{
-        p: 3,
+        px: 1,
+        py: 3,
         background: "linear-gradient(135deg, #e3f2fd 0%, #fff 100%)",
         minHeight: "100vh",
       }}
