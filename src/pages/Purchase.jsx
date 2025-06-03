@@ -259,13 +259,13 @@ const Purchase = () => {
         </Box>
       ) : monthKeys.length === 0 ? (
         <Typography variant="body1" color="text.secondary">
-          No appointments found.
+          No purchases found.
         </Typography>
       ) : (
         monthKeys.map((monthKey) => (
           <Box key={monthKey} sx={{ mb: 4 }}>
             <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
-              Appointments in {monthKey}
+              Purchases in {monthKey}
             </Typography>
             <Grid container spacing={3}>
               {groupedAppointments[monthKey].map((item) => {
@@ -337,42 +337,22 @@ const Purchase = () => {
                                 >
                                   {patient?.fullname}
                                 </Typography>
-                                <Stack
-                                  direction="row"
-                                  spacing={2}
-                                  sx={{ mt: 0.5 }}
-                                >
-                                  <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                  >
-                                    Gender: <b>{patient?.gender}</b>
-                                  </Typography>
-                                  <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                  >
-                                    DOB:{" "}
-                                    <b>
-                                      {patient?.dob
-                                        ? formatDate(patient.dob)
-                                        : ""}
-                                    </b>
-                                  </Typography>
-                                </Stack>
+
                                 <Stack direction="row" spacing={2}>
                                   <Typography
                                     variant="body2"
                                     color="text.secondary"
                                   >
-                                    Phone: <b>{patient?.phone_no}</b>
+                                    Email: <b>{patient?.email}</b>
                                   </Typography>
-                                  {patient?.email && (
+                                </Stack>
+                                <Stack>
+                                  {patient?.weight && (
                                     <Typography
                                       variant="body2"
                                       color="text.secondary"
                                     >
-                                      Email: <b>{patient.email}</b>
+                                      Phone: <b>{patient.phone_no}</b>
                                     </Typography>
                                   )}
                                 </Stack>

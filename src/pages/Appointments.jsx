@@ -250,7 +250,12 @@ const Appointments = () => {
                 const doctor = doctors?.find((d) => d.id === item.doctor_id);
 
                 return (
-                  <Grid item xs={12} md={6} key={item.id}>
+                  <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    key={item.id + "_" + Math.floor(Math.random() * 1000000)}
+                  >
                     <Card
                       sx={{
                         borderRadius: 4,

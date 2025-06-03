@@ -9,6 +9,7 @@ import Specialty from "./pages/Specialty";
 import Facilities from "./pages/Facilities";
 import Appointments from "./pages/Appointments";
 import Purchase from "./pages/Purchase";
+import Doctor from "./pages/Doctor";
 
 function AppRoutes() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Kiểm tra trạng thái đăng nhập
@@ -44,6 +45,11 @@ function AppRoutes() {
       path: "/purchase",
       element: isLoggedIn ? <MainLayout /> : <Navigate to="/purchase" />,
       children: [{ path: "", element: <Purchase /> }],
+    },
+    {
+      path: "/doctors",
+      element: isLoggedIn ? <MainLayout /> : <Navigate to="/doctors" />,
+      children: [{ path: "", element: <Doctor /> }],
     },
     // Routes không yêu cầu đăng nhập
     {
