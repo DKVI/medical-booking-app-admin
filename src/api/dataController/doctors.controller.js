@@ -33,6 +33,33 @@ const doctorsController = {
       throw err;
     }
   },
+  getByUserId: async (id) => {
+    try {
+      const res = await axiosInstance.get(`/doctor/user/${id}`);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  },
+  changeAvt: async ({ id, avatar }) => {
+    try {
+      const res = await axiosInstance.post("/doctor/changeAvt", {
+        id,
+        avatar,
+      });
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  },
+  update: async (id, data) => {
+    try {
+      const res = await axiosInstance.put(`/doctor/update-doctor/${id}`, data);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default doctorsController;

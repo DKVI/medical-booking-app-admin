@@ -40,7 +40,7 @@ function SpecialtyForm({ status, body }) {
   return (
     <form
       onSubmit={handleSubmit}
-      style={{ maxWidth: "400px", margin: "0 auto", "padding-top": "80px" }}
+      style={{ maxWidth: "400px", margin: "0 auto", paddingTop: "80px" }}
     >
       <h2>
         {status === "create"

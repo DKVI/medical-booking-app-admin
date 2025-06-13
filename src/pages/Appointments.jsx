@@ -24,6 +24,7 @@ import dayjs from "dayjs";
 import doctorsController from "../api/dataController/doctors.controller";
 import patientsController from "../api/dataController/patients.controller";
 import baseAPI from "../api/dataController/baseAPI";
+import { motion } from "framer-motion";
 
 // Hàm chọn màu chip theo status
 const getStatusColor = (status) => {
@@ -162,250 +163,259 @@ const Appointments = () => {
     });
 
   return (
-    <Box
-      sx={{ p: { xs: 1, md: 3 }, background: "#f5f7fa", minHeight: "100vh" }}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      <Typography variant="h4" fontWeight={700} color="primary" gutterBottom>
-        Appointments
-      </Typography>
-
-      {/* Filter section */}
-      <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} md={3}>
-          <TextField
-            label="Filter by time"
-            variant="outlined"
-            fullWidth
-            value={filterTime}
-            onChange={(e) => setFilterTime(e.target.value)}
-            placeholder="e.g. 10:30"
-          />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Autocomplete
-            options={facilityOptions.map((f) => f.name)}
-            value={filterFacility}
-            onChange={(_, newValue) => setFilterFacility(newValue || "")}
-            renderInput={(params) => (
-              <TextField {...params} label="Facility" variant="outlined" />
-            )}
-            isOptionEqualToValue={(option, value) => option === value}
-            clearOnEscape
-          />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Autocomplete
-            options={specialtyOptions.map((s) => s.name)}
-            value={filterSpecialty}
-            onChange={(_, newValue) => setFilterSpecialty(newValue || "")}
-            renderInput={(params) => (
-              <TextField {...params} label="Specialty" variant="outlined" />
-            )}
-            isOptionEqualToValue={(option, value) => option === value}
-            clearOnEscape
-          />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Autocomplete
-            options={
-              doctors
-                ? doctors.map((d) => ({ label: d.fullname, id: d.id }))
-                : []
-            }
-            value={
-              doctors
-                ? doctors
-                    .map((d) => ({ label: d.fullname, id: d.id }))
-                    .find((d) => d.id === filterDoctor) || null
-                : null
-            }
-            onChange={(_, newValue) =>
-              setFilterDoctor(newValue ? newValue.id : "")
-            }
-            renderInput={(params) => (
-              <TextField {...params} label="Doctor" variant="outlined" />
-            )}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-            clearOnEscape
-          />
-        </Grid>
-      </Grid>
-
-      {loading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
-          <CircularProgress />
-        </Box>
-      ) : monthKeys.length === 0 ? (
-        <Typography variant="body1" color="text.secondary">
-          No appointments found.
+      <Box
+        sx={{ p: { xs: 1, md: 3 }, background: "#f5f7fa", minHeight: "100vh" }}
+      >
+        <Typography variant="h4" fontWeight={700} color="primary" gutterBottom>
+          Appointments
         </Typography>
-      ) : (
-        monthKeys.map((monthKey) => (
-          <Box key={monthKey} sx={{ mb: 4 }}>
-            <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
-              Appointments in {monthKey}
-            </Typography>
-            <Grid container spacing={3}>
-              {groupedAppointments[monthKey].map((item) => {
-                const doctor = doctors?.find((d) => d.id === item.doctor_id);
 
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                    key={item.id + "_" + Math.floor(Math.random() * 1000000)}
-                  >
-                    <Card
-                      sx={{
-                        borderRadius: 4,
-                        boxShadow: 8,
-                        background:
-                          "linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)",
-                        border: "1px solid #90caf9",
-                        transition: "transform 0.2s, box-shadow 0.2s",
-                        "&:hover": {
-                          transform: "translateY(-8px) scale(1.01)",
-                          boxShadow: 16,
-                          borderColor: "#1976d2",
-                        },
-                      }}
+        {/* Filter section */}
+        <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Grid item xs={12} md={3}>
+            <TextField
+              label="Filter by time"
+              variant="outlined"
+              fullWidth
+              value={filterTime}
+              onChange={(e) => setFilterTime(e.target.value)}
+              placeholder="e.g. 10:30"
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Autocomplete
+              options={facilityOptions.map((f) => f.name)}
+              value={filterFacility}
+              onChange={(_, newValue) => setFilterFacility(newValue || "")}
+              renderInput={(params) => (
+                <TextField {...params} label="Facility" variant="outlined" />
+              )}
+              isOptionEqualToValue={(option, value) => option === value}
+              clearOnEscape
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Autocomplete
+              options={specialtyOptions.map((s) => s.name)}
+              value={filterSpecialty}
+              onChange={(_, newValue) => setFilterSpecialty(newValue || "")}
+              renderInput={(params) => (
+                <TextField {...params} label="Specialty" variant="outlined" />
+              )}
+              isOptionEqualToValue={(option, value) => option === value}
+              clearOnEscape
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Autocomplete
+              options={
+                doctors
+                  ? doctors.map((d) => ({ label: d.fullname, id: d.id }))
+                  : []
+              }
+              value={
+                doctors
+                  ? doctors
+                      .map((d) => ({ label: d.fullname, id: d.id }))
+                      .find((d) => d.id === filterDoctor) || null
+                  : null
+              }
+              onChange={(_, newValue) =>
+                setFilterDoctor(newValue ? newValue.id : "")
+              }
+              renderInput={(params) => (
+                <TextField {...params} label="Doctor" variant="outlined" />
+              )}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              clearOnEscape
+            />
+          </Grid>
+        </Grid>
+
+        {loading ? (
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
+            <CircularProgress />
+          </Box>
+        ) : monthKeys.length === 0 ? (
+          <Typography variant="body1" color="text.secondary">
+            No appointments found.
+          </Typography>
+        ) : (
+          monthKeys.map((monthKey) => (
+            <Box key={monthKey} sx={{ mb: 4 }}>
+              <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
+                Appointments in {monthKey}
+              </Typography>
+              <Grid container spacing={3}>
+                {groupedAppointments[monthKey].map((item) => {
+                  const doctor = doctors?.find((d) => d.id === item.doctor_id);
+
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                      key={item.id + "_" + Math.floor(Math.random() * 1000000)}
                     >
-                      <CardHeader
-                        sx={{ pb: 0 }}
-                        title={
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: { xs: "flex-start", md: "center" },
-                              flexDirection: { xs: "column", md: "row" },
-                              gap: 2,
-                            }}
-                          >
-                            {/* Doctor info only */}
-                            <Stack
-                              direction="row"
-                              spacing={2}
-                              alignItems="center"
+                      <Card
+                        sx={{
+                          borderRadius: 4,
+                          boxShadow: 8,
+                          background:
+                            "linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)",
+                          border: "1px solid #90caf9",
+                          transition: "transform 0.2s, box-shadow 0.2s",
+                          "&:hover": {
+                            transform: "translateY(-8px) scale(1.01)",
+                            boxShadow: 16,
+                            borderColor: "#1976d2",
+                          },
+                        }}
+                      >
+                        <CardHeader
+                          sx={{ pb: 0 }}
+                          title={
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: { xs: "flex-start", md: "center" },
+                                flexDirection: { xs: "column", md: "row" },
+                                gap: 2,
+                              }}
                             >
-                              <Avatar
-                                src={baseAPI + (doctor?.avatar || "")}
-                                alt={doctor?.name || item.doctor_name}
+                              {/* Doctor info only */}
+                              <Stack
+                                direction="row"
+                                spacing={2}
+                                alignItems="center"
+                              >
+                                <Avatar
+                                  src={baseAPI + (doctor?.avatar || "")}
+                                  alt={doctor?.name || item.doctor_name}
+                                  sx={{
+                                    width: 56,
+                                    height: 56,
+                                    border: "2px solid #1976d2",
+                                    background: "#fff",
+                                  }}
+                                />
+                                <Box>
+                                  <Typography
+                                    variant="subtitle2"
+                                    color="text.secondary"
+                                    sx={{ letterSpacing: 1 }}
+                                  >
+                                    Doctor
+                                  </Typography>
+                                  <Typography
+                                    variant="h6"
+                                    fontWeight={700}
+                                    color="primary"
+                                  >
+                                    {doctor?.name || item.doctor_name}
+                                  </Typography>
+                                  <Stack
+                                    direction="row"
+                                    spacing={2}
+                                    sx={{ mt: 0.5 }}
+                                  >
+                                    {doctor?.phone && (
+                                      <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                      >
+                                        Phone: <b>{doctor.phone}</b>
+                                      </Typography>
+                                    )}
+                                    {doctor?.email && (
+                                      <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                      >
+                                        Email: <b>{doctor.email}</b>
+                                      </Typography>
+                                    )}
+                                    {doctor?.specialty && (
+                                      <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                      >
+                                        Specialty: <b>{doctor.specialty}</b>
+                                      </Typography>
+                                    )}
+                                  </Stack>
+                                </Box>
+                              </Stack>
+                              {/* Status chip */}
+                              <Chip
+                                label={item.status}
+                                color={getStatusColor(item.status)}
+                                size="medium"
                                 sx={{
-                                  width: 56,
-                                  height: 56,
-                                  border: "2px solid #1976d2",
-                                  background: "#fff",
+                                  fontWeight: 700,
+                                  fontSize: 15,
+                                  px: 2,
+                                  letterSpacing: 1,
+                                  textTransform: "uppercase",
+                                  boxShadow: 2,
                                 }}
                               />
-                              <Box>
-                                <Typography
-                                  variant="subtitle2"
-                                  color="text.secondary"
-                                  sx={{ letterSpacing: 1 }}
-                                >
-                                  Doctor
-                                </Typography>
-                                <Typography
-                                  variant="h6"
-                                  fontWeight={700}
-                                  color="primary"
-                                >
-                                  {doctor?.name || item.doctor_name}
-                                </Typography>
-                                <Stack
-                                  direction="row"
-                                  spacing={2}
-                                  sx={{ mt: 0.5 }}
-                                >
-                                  {doctor?.phone && (
-                                    <Typography
-                                      variant="body2"
-                                      color="text.secondary"
-                                    >
-                                      Phone: <b>{doctor.phone}</b>
-                                    </Typography>
-                                  )}
-                                  {doctor?.email && (
-                                    <Typography
-                                      variant="body2"
-                                      color="text.secondary"
-                                    >
-                                      Email: <b>{doctor.email}</b>
-                                    </Typography>
-                                  )}
-                                  {doctor?.specialty && (
-                                    <Typography
-                                      variant="body2"
-                                      color="text.secondary"
-                                    >
-                                      Specialty: <b>{doctor.specialty}</b>
-                                    </Typography>
-                                  )}
-                                </Stack>
-                              </Box>
-                            </Stack>
-                            {/* Status chip */}
-                            <Chip
-                              label={item.status}
-                              color={getStatusColor(item.status)}
-                              size="medium"
-                              sx={{
-                                fontWeight: 700,
-                                fontSize: 15,
-                                px: 2,
-                                letterSpacing: 1,
-                                textTransform: "uppercase",
-                                boxShadow: 2,
-                              }}
-                            />
-                          </Box>
-                        }
-                      />
-                      <CardContent sx={{ pt: 2 }}>
-                        {/* Appointment info */}
-                        <Stack spacing={0.5}>
-                          <Typography variant="body1">
-                            <b style={{ color: "#1976d2" }}>Facility:</b>{" "}
-                            {item.facility_name}
-                          </Typography>
-                          <Typography variant="body1">
-                            <b style={{ color: "#1976d2" }}>Specialty:</b>{" "}
-                            {item.specialty_name}
-                          </Typography>
-                          <Typography variant="body1">
-                            <b style={{ color: "#1976d2" }}>Address:</b>{" "}
-                            {item.address}
-                          </Typography>
-                          <Typography variant="body1">
-                            <b style={{ color: "#1976d2" }}>Time:</b>{" "}
-                            <span style={{ color: "green", fontWeight: 600 }}>
-                              {item.times}
-                            </span>
-                          </Typography>
-                          <Typography variant="body1">
-                            <b style={{ color: "#1976d2" }}>Date:</b>{" "}
-                            <span style={{ color: "green", fontWeight: 600 }}>
-                              {formatDate(item.date)}
-                            </span>
-                          </Typography>
-                          {item.note && (
-                            <Typography variant="body2" color="text.secondary">
-                              Note: <b>{item.note}</b>
+                            </Box>
+                          }
+                        />
+                        <CardContent sx={{ pt: 2 }}>
+                          {/* Appointment info */}
+                          <Stack spacing={0.5}>
+                            <Typography variant="body1">
+                              <b style={{ color: "#1976d2" }}>Facility:</b>{" "}
+                              {item.facility_name}
                             </Typography>
-                          )}
-                        </Stack>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Box>
-        ))
-      )}
-    </Box>
+                            <Typography variant="body1">
+                              <b style={{ color: "#1976d2" }}>Specialty:</b>{" "}
+                              {item.specialty_name}
+                            </Typography>
+                            <Typography variant="body1">
+                              <b style={{ color: "#1976d2" }}>Address:</b>{" "}
+                              {item.address}
+                            </Typography>
+                            <Typography variant="body1">
+                              <b style={{ color: "#1976d2" }}>Time:</b>{" "}
+                              <span style={{ color: "green", fontWeight: 600 }}>
+                                {item.times}
+                              </span>
+                            </Typography>
+                            <Typography variant="body1">
+                              <b style={{ color: "#1976d2" }}>Date:</b>{" "}
+                              <span style={{ color: "green", fontWeight: 600 }}>
+                                {formatDate(item.date)}
+                              </span>
+                            </Typography>
+                            {item.note && (
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
+                                Note: <b>{item.note}</b>
+                              </Typography>
+                            )}
+                          </Stack>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Box>
+          ))
+        )}
+      </Box>
+    </motion.div>
   );
 };
 

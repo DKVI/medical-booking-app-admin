@@ -5,11 +5,12 @@ import MainLayout from "./layouts/MainLayout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-import Specialty from "./pages/Specialty";
 import Facilities from "./pages/Facilities";
 import Appointments from "./pages/Appointments";
 import Purchase from "./pages/Purchase";
 import Doctor from "./pages/Doctor";
+import Specialties from "./pages/Specialties";
+import Users from "./pages/Users";
 
 function AppRoutes() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Kiểm tra trạng thái đăng nhập
@@ -27,9 +28,9 @@ function AppRoutes() {
       children: [{ path: "", element: <Dashboard /> }],
     },
     {
-      path: "/specialty",
-      element: isLoggedIn ? <MainLayout /> : <Navigate to="/specialty" />,
-      children: [{ path: "", element: <Specialty /> }],
+      path: "/specialties",
+      element: isLoggedIn ? <MainLayout /> : <Navigate to="/specialties" />,
+      children: [{ path: "", element: <Specialties /> }],
     },
     {
       path: "/facilities",
@@ -50,6 +51,11 @@ function AppRoutes() {
       path: "/doctors",
       element: isLoggedIn ? <MainLayout /> : <Navigate to="/doctors" />,
       children: [{ path: "", element: <Doctor /> }],
+    },
+    {
+      path: "/users",
+      element: isLoggedIn ? <MainLayout /> : <Navigate to="/users" />,
+      children: [{ path: "", element: <Users /> }],
     },
     // Routes không yêu cầu đăng nhập
     {
